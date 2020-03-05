@@ -1,0 +1,5 @@
+{{ ansible_managed | comment }}
+
+{% for setting in netconfig_settings %}
+{{ setting.network_id }} {{ setting.semantics }} {{ setting.flags }} {{ setting.protofamily }} {{ setting.protoname }} {{ setting.device }} {{ setting.libraries }}
+{% endfor %}

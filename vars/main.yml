@@ -1,2 +1,4 @@
 ---
 # Role variables
+
+netconfig_file_path: /etc/netconfig

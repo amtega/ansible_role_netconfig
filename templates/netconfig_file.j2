@@ -1,5 +1,0 @@
-{{ ansible_managed | comment }}
-
-{% for line in netconfig_file_lines %}
-{{ line.network_id }} {{ line.semantics }} {{ line.flags }} {{ line.protofamily }} {{ line.protoname }} {{ line.device }} {{ line.libraries }}
-{% endfor %}

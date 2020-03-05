@@ -1,7 +1,9 @@
 # Ansible netconfig role
 
-This is an [Ansible](http://www.ansible.com) role to fill /etc/netconfig file.
+This is an [Ansible](http://www.ansible.com) role to setup /etc/netconfig file.
+
 The file defines a list of "transport names" describing their semantics and protocol.
+
 This file is only used by the RPC library code.
 
 ## Role Variables
@@ -19,7 +21,7 @@ This is an example playbook:
   roles:
     - role: amtega.netconfig
       vars:
-        netconfig_file_lines:
+        netconfig_settings:
           - network_id: "udp"
             semantics: "tpi_clts"
             flags: "v"

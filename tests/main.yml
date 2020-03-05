@@ -1,5 +1,6 @@
 ---
 # Tasks for testing role
+
 - name: Configure docker sandbox environment
   hosts: localhost
   roles:
@@ -24,7 +25,7 @@
   roles:
     - role: amtega.netconfig
       vars:
-        netconfig_file_lines:
+        netconfig_settings:
           - network_id: "udp"
             semantics: "tpi_clts"
             flags: "v"
@@ -60,8 +61,6 @@
             protoname: "-"
             device: "-"
             libraries: "-"
-
-
   tasks:
     - name: Register /etc/netconfig file content
       shell: cat "{{ netconfig_file_path }}"

@@ -1,32 +1,31 @@
 ---
 # Role default lower priority variables
-# Variable to set netconfig file path
-netconfig_file_path: /etc/netconfig
 
-# Variable to fill the /etc/netconfig file.
-# Is a list with dicts. Every element describes a file line.
+# List with dicts with netconfig settings. Every element describes a file line.
+#
 # Entries in the file have the following format:
 #
-#   network_id semantics flags protofamily protoname device libraries
+# network_id semantics flags protofamily protoname device libraries
 #
-# Dictionary elements od the list consist of the following fields (all required):
+# Dictionary elements consist of the following fields (all required):
 #
-#   - network_id:<The name of the transport described.>
-#     semantics: <Describes the semantics of the transport. This can be one of:
-#                 tpi_clts -> Connectionless transport.
-#                 tpi_cots -> Connection-oriented transport.
-#                 tpi_cots_ord ->Connection-oriented, ordered transport.
-#                 tpi_raw -> A raw connection.>
-#     flags: <This field is either blank, specified by ``- '' or contains a ``v '' meaning visible to the getnetconfig(3) function.>
-#     protofamily: <The protocol family of the transport. This is currently one of:
-#                   inet6 -> The IPv6 (PF_INET6 ) family of protocols.
-#                   inet -> The IPv4 (PF_INET ) family of protocols.
-#                   loopback -> The PF_LOCAL protocol family.A
-#     protoname: < The name of the protocol used for this transport. Can currently be either udp tcp or empty.>
-#     device: < This field is always empty in current versions of libtirpc.>
-#     libraries: < This field is always empty in current versions of libtirpc.>
+# - network_id:   The name of the transport
+#   semantics:    Semantics of the transport. This can be one of:
+#                   tpi_clts -> Connectionless transport
+#                   tpi_cots -> Connection-oriented transport
+#                   tpi_cots_ord ->Connection-oriented, ordered transport
+#                   tpi_raw -> A raw connection
+#   flags:        This field is either blank, specified by "-" o "v", meaning
+#                 visible to the getnetconfig(3) function
+#   protofamily:  Protocol family of the transport. This is currently one of:
+#                   inet6 -> The IPv6 (PF_INET6 ) family of protocols
+#                   inet -> The IPv4 (PF_INET ) family of protocols
+#                   loopback -> The PF_LOCAL protocol family
+#   protoname:    Name of the protocol used for this transport. Can be either
+#                 udp, tcp or empty
+#   device:       Always empty in current versions of libtirpc
+#   libraries:    Always empty in current versions of libtirpc
 #
-#
-# Empty valusea meaning '-'.
+# Empty values mean '-'.
 
-netconfig_file_lines: []
+netconfig_settings: []
