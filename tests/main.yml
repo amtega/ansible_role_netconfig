@@ -1,2 +1,95 @@
 ---
 # Tasks for testing role
+- name: Configure docker sandbox environment
+  hosts: localhost
+  roles:
+    - role: amtega.docker_presets
+      docker_presets_images_json_query: >-
+        [? starts_with(name, `centos-7`)
+           || starts_with(name, `fedora-29`)
+           || starts_with(name, `fedora-30`) ]
+  tags:
+    - sandbox
+
+- name: Run idempotence test
+  hosts: localhost
+  roles:
+    - role: amtega.docker_sandbox
+      docker_sandbox_state: started
+  tags:
+    - sandbox
+
+- name: Test netconfig role
+  hosts: docker_sandbox_containers
+  roles:
+    - role: amtega.netconfig
+      vars:
+        netconfig_file_lines:
+          - network_id: "udp"
+            semantics: "tpi_clts"
+            flags: "v"
+            protofamily: "inet"
+            protoname: "udp"
+            device: "-"
+            libraries: "-"
+          - network_id: "tcp"
+            semantics: "tpi_cots_ord"
+            flags: "v"
+            protofamily: "inet"
+            protoname: "tcp"
+            device: "-"
+            libraries: "-"
+          - network_id: "rawip"
+            semantics: "tpi_raw"
+            flags: "-"
+            protofamily: "inet"
+            protoname: "-"
+            device: "-"
+            libraries: "-"
+          - network_id: "local"
+            semantics: "tpi_cots_ord"
+            flags: "-"
+            protofamily: "loopback"
+            protoname: "-"
+            device: "-"
+            libraries: "-"
+          - network_id: "unix"
+            semantics: "tpi_cots_ord"
+            flags: "-"
+            protofamily: "loopback"
+            protoname: "-"
+            device: "-"
+            libraries: "-"
+
+
+  tasks:
+    - name: Register /etc/netconfig file content
+      shell: cat "{{ netconfig_file_path }}"
+      changed_when: false
+      register: read_netconfig_file_result
+      args:
+        warn: no
+
+    - name: Assert netconfig file have appropriate content
+      assert:
+        that:
+          - stdout is search("udp tpi_clts v inet udp - -")
+          - stdout is search("tcp tpi_cots_ord v inet tcp - -")
+          - stdout is search("rawip tpi_raw - inet - - -")
+          - stdout is search("local tpi_cots_ord - loopback - - -")
+          - stdout is search("unix tpi_cots_ord - loopback - - -")
+          - stdout is not search("inet6")
+      vars:
+        stdout: "{{ read_netconfig_file_result.stdout }}"
+
+  tags:
+    - idempotence
+
+- name: Cleanup docker docker sandbox
+  hosts: localhost
+  roles:
+    - role: amtega.docker_sandbox
+      docker_sandbox_state: absent
+  tags:
+    - cleanup
+    - sandbox
