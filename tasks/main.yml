@@ -1,26 +1,9 @@
 ---
 # Role tasks
-- include_role:
-    name: amtega.check_platform
-  vars:
-    check_platform_distributions:
-      centos: 7
-      rhel: 7
-      fedora: 29
 
-- include_role:
-    name: amtega.packages
-  vars:
-    packages_os:
-      all:
-        all:
-          libtirpc: present
-- block:
-
-    - name: create /etc/netconfig file
-      template:
-        src: netconfig_file.j2
-        dest: "{{ netconfig_file_path }}"
-
+- name: create /etc/netconfig file
+  template:
+    src: netconfig.j2
+    dest: "{{ netconfig_file_path }}"
   tags:
     - role::netconfig
