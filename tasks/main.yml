@@ -1,7 +1,7 @@
 ---
 # Role tasks
 
-- name: create /etc/netconfig file
+- name: Create /etc/netconfig file
   template:
     src: netconfig.j2
     dest: "{{ netconfig_file_path }}"
