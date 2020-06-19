@@ -1,5 +1,5 @@
 {{ ansible_managed | comment }}
-
+#
 {% for setting in netconfig_settings %}
-{{ setting.network_id }} {{ setting.semantics }} {{ setting.flags }} {{ setting.protofamily }} {{ setting.protoname }} {{ setting.device }} {{ setting.libraries }}
+{{ "%-14s" | format(setting.network_id) }}{{ "%-14s" | format(setting.semantics) }}{{ "%-6s" | format(setting.flags) }}{{ "%-10s" | format(setting.protofamily) }} {{ "%-18s" | format(setting.protoname) }} {{ "%-30s" | format(setting.device) }}{{ setting.libraries }}
 {% endfor %}
