@@ -1,7 +1,7 @@
 ---
 galaxy_info:
   role_name: netconfig
-  author: José Enrique Mourón Regueira
+  author: José Enrique Mourón Regueira / Juan Antonio Valiño García
   description: Manage /etc/netconfig file
   company: AMTEGA - Xunta de Galicia
   license: GPLv3 or EUPL

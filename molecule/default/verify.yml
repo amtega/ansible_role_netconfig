@@ -1,0 +1,24 @@
+---
+
+- name: Verify
+  hosts: molecule_hosts
+  gather_facts: no
+  tasks:
+    - name: Register /etc/netconfig file content
+      shell: cat /etc/netconfig
+      changed_when: false
+      register: read_netconfig_file_result
+      args:
+        warn: no
+
+    - name: Assert netconfig file have appropriate content
+      assert:
+        that:
+          - stdout is search("udp.*tpi_clts.*v.*inet.*udp.*-.*-")
+          - stdout is search("tcp.*tpi_cots_ord.*v.*inet.*tcp.*-.*-")
+          - stdout is search("rawip.*tpi_raw.*-.*inet.*-.*-.*-")
+          - stdout is search("local.*tpi_cots_ord.*-.*loopback.*-.*-.*-")
+          - stdout is search("unix.*tpi_cots_ord.*-.*loopback.*-.*-.*-")
+          - stdout is not search("inet6")
+      vars:
+        stdout: "{{ read_netconfig_file_result.stdout }}"
