@@ -5,8 +5,8 @@
   gather_facts: no
   tasks:
     - name: Register /etc/netconfig file content
-      shell: cat /etc/netconfig
-      changed_when: false
+      command: cat /etc/netconfig
+      changed_when: no
       register: read_netconfig_file_result
       args:
         warn: no
