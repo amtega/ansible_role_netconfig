@@ -5,5 +5,6 @@
   template:
     src: netconfig.j2
     dest: "{{ netconfig_file_path }}"
+    mode: 0644
   tags:
     - role::netconfig
