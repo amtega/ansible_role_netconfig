@@ -20,7 +20,6 @@ platforms:
       - molecule_hosts_centos_7
   - name: "centos8-${INSTANCE_UUID:-1}"
     image: quay.io/centos/centos:stream8
-    dockerfile: Dockerfile.systemd.j2
     groups:
       - molecule_hosts
       - molecule_hosts_centos
