@@ -5,14 +5,14 @@
   gather_facts: no
   tasks:
     - name: Register /etc/netconfig file content
-      command: cat /etc/netconfig
+      ansible.builtin.command: cat /etc/netconfig
       changed_when: no
       register: read_netconfig_file_result
       args:
         warn: no
 
     - name: Assert netconfig file have appropriate content
-      assert:
+      ansible.builtin.assert:
         that:
           - stdout is search("udp.*tpi_clts.*v.*inet.*udp.*-.*-")
           - stdout is search("tcp.*tpi_cots_ord.*v.*inet.*tcp.*-.*-")
