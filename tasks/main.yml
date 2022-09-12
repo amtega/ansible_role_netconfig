@@ -1,8 +1,7 @@
 ---
-# Role tasks
 
 - name: Create /etc/netconfig file
-  template:
+  ansible.builtin.template:
     src: netconfig.j2
     dest: "{{ netconfig_file_path }}"
     mode: 0644
